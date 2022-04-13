@@ -5,7 +5,6 @@ import axios from 'axios'
 
 router.get('/',async (req, res, next) => {
     try {
-    
     const { symbol, interval } = req.query
     const Res = await axios.get(`https://api.binance.com/api/v3/klines?symbol=${symbol}&interval=${interval}&limit=1000`);
     const resData =  Res.data;
@@ -46,17 +45,19 @@ router.get('/',async (req, res, next) => {
         let emaData9 = calculateEMA(candleData, 9);
         let emaData26 = calculateEMA(candleData, 26);
         
-        const order_history = await axios.get(`http://a135-202-166-170-106.ngrok.io/orders_history/`);
+        const order_history = await axios.get(`https://mytrading-bot.herokuapp.com/orders_history/`);
         const orderHistory =  order_history.data;
 
 
     res.send({
         success: true, message: 'Graph Data fetched successfully',
     data: {
+        symbol, 
+        interval,
         candleData,
         emaData9,
         emaData26,
-        orderHistory
+        orderHistory,
     }
     })
         
