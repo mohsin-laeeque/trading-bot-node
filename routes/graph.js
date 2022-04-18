@@ -17,24 +17,19 @@ router.get('/',async (req, res, next) => {
         close: d[4] * 1,
     }))
     
-    function calculateEMA(data, count){
-        
+    function calculateEMA(data, count){      
         var result = [];
             for (var i = 0; i < data.length; i++) {
                 result.push(data[i].close);
-            }
-            
-            const k = 2/(count + 1);
-            
-            let emaData = [];
-            
+            }        
+            const k = 2/(count + 1);    
+            let emaData = [];      
             emaData[0] = +result[0] 
-            
+     
             for (let i = 1; i < result.length; i++) {
                 let newPoint = (result[i] * k) + (emaData[i-1] * (1-k))
                 emaData.push(newPoint)
             } 
-            
             let currentEma = [...emaData].map((elem,i) => {
                 return {time: data[i].time, value: elem}
             })
@@ -45,8 +40,8 @@ router.get('/',async (req, res, next) => {
         let emaData9 = calculateEMA(candleData, 9);
         let emaData26 = calculateEMA(candleData, 26);
         
-        const order_history = await axios.get(`https://mytrading-bot.herokuapp.com/orders_history/`);
-        const orderHistory =  order_history.data;
+        // const order_history = await axios.get(`https://mytrading-bot.herokuapp.com/api/orders_history`);
+        // const orderHistory =  order_history.data;
 
 
     res.send({
@@ -57,7 +52,7 @@ router.get('/',async (req, res, next) => {
         candleData,
         emaData9,
         emaData26,
-        orderHistory,
+        // orderHistory,
     }
     })
         
