@@ -40,13 +40,13 @@ router.get('/', async (req, res, next) => {
         let emaData9 = calculateEMA(candleData, 9);
         let emaData26 = calculateEMA(candleData, 26);
 
-        const botStatusRes = await axios.get(`http://1ce5-182-191-113-19.ngrok.io/api/bot_trading_status/${symbol}/`)
-        const botStatusData = botStatusRes.data;
+        // const botStatusRes = await axios.get(`http://5166-182-191-113-19.ngrok.io/api/bot_trading_status/${symbol}/`)
+        // const botStatusData = botStatusRes.data;
 
-        const OHRes = await axios.get(`http://1ce5-182-191-113-19.ngrok.io/api/orders_history/${symbol}/`);
+        const OHRes = await axios.get(`http://5166-182-191-113-19.ngrok.io/api/orders_history/${symbol}/`);
         const orderHistory = OHRes.data;
 
-        const PLRes = await axios.get(`http://1ce5-182-191-113-19.ngrok.io/api/profit_loss_calculation/${symbol}`);
+        const PLRes = await axios.get(`http://5166-182-191-113-19.ngrok.io/api/profit_loss_calculation/${symbol}`);
         const PLData = PLRes.data
 
         res.send({
@@ -57,7 +57,7 @@ router.get('/', async (req, res, next) => {
                 candleData,
                 emaData9,
                 emaData26,
-                botStatusData,
+                // botStatusData,
                 orderHistory,
                 PLData
             }
